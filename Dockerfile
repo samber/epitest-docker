@@ -1,4 +1,4 @@
-FROM fedora:28
+FROM fedora:30
 LABEL maintainer="Thomas Dufour <thomas.dufour@epitech.eu>"
 
 RUN dnf -y install dnf-plugins-core &&      \
@@ -42,8 +42,8 @@ RUN dnf -y install dnf-plugins-core &&      \
         gmp-devel.x86_64                    \
         golang                              \
         gradle                              \
-        java-1.8.0-openjdk                  \
-        java-1.8.0-openjdk-devel            \
+        java-openjdk                        \
+        java-openjdk-devel                  \
         ksh.x86_64                          \
         libX11-devel.x86_64                 \
         libXext-devel.x86_64                \
@@ -127,17 +127,12 @@ RUN dnf -y install dnf-plugins-core &&      \
     && dnf -y install vim                   \
     && dnf clean all -y                     \
     && pip3 install --upgrade pip	    \
-    && pip3 install -Iv pexpect==4.0.1 pyrser==0.2.0 cnorm==4.0.5 gcovr==4.1 conan==1.9.0 pycrypto==2.6.1 requests==2.19.1
+    && pip3 install -Iv gcovr==4.1 conan==1.15.1 pycrypto==2.6.1 requests==2.22.0 pyte==0.8.0
 
 RUN cd /tmp \
-    && git clone https://github.com/selectel/pyte.git \
-    && cd pyte \
-    && git checkout 358dea5b9ea11eeab6c6ed8fb73c220550e17e26 \
-    && python3 setup.py install \
-    && cd \
-    && rm -rf /tmp/pyte \
-    && cd /tmp && git clone --branch v2.3.2 https://github.com/Snaipe/Criterion \
+    && cd /tmp && git clone https://github.com/Snaipe/Criterion \
     && cd Criterion \
+    && git checkout a64b8600a9236a4cc8204353b19ce233e294c29b \
     && mkdir build \
     && cd build \
     && cmake -DCMAKE_INSTALL_PREFIX=/usr .. \
@@ -148,7 +143,7 @@ RUN cd /tmp \
     && rm -rf /tmp/Criterion \
     && cd /tmp && git clone https://github.com/runkit7/runkit7.git \
     && cd runkit7 \
-    && git checkout 7ddbbb0d4784751a55eac0f4f425fbc2e1d249f6 \
+    && git checkout 84e5b5e04af239c9d79b09be1b1dc0d0ac23b477 \
     && phpize && ./configure && make && make install \
     && cd \
     && rm -rf /tmp/runkit7 \
